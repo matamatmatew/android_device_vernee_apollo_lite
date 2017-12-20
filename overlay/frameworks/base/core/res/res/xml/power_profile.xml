@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <device name="Android">
 
-    <!-- Most values are the incremental current used by a feature, in mA (measured at nominal voltage). The default values are deliberately incorrect dummy values.
-         OEM's must measure and provide actual values before shipping a device. Example real-world values are given in comments, but they are totally
-         dependent on the platform and can vary significantly, so should be measured on the shipping platform with a power meter. -->
+    <!-- Most values are the incremental current used by a feature, in mA (measured at nominal voltage).
+         The default values are deliberately incorrect dummy values. OEM's must measure and provide
+         actual values before shipping a device. Example real-world values are given in comments, but
+         they are totally dependent on the platform and can vary significantly, so should be measured on
+         the shipping platform with a power meter. -->
     <item name="none">0</item>
     <item name="screen.on">200</item>           <!-- ~200mA -->
     <item name="screen.full">300</item>         <!-- ~300mA -->
@@ -12,10 +14,10 @@
     <item name="wifi.on">3</item>               <!-- ~3mA -->
     <item name="wifi.active">200</item>         <!-- WIFI data transfer, ~200mA -->
     <item name="wifi.scan">100</item>           <!-- WIFI network scanning, ~100mA -->
-    <item name="dsp.audio">100</item>           <!-- ~10mA -->
+    <item name="dsp.audio">10</item>            <!-- ~10mA -->
     <item name="dsp.video">50</item>            <!-- ~50mA -->
-    <item name="camera.flashlight">0.1</item>   <!-- Avg. power for camera flash, ~160mA -->
-    <item name="camera.avg">0.1</item>          <!-- Avg. power use of camera in standard usecases, ~550mA -->
+    <item name="camera.flashlight">160</item>   <!-- Avg. power for camera flash, ~160mA -->
+    <item name="camera.avg">550</item>          <!-- Avg. power use of camera in standard usecases, ~550mA -->
     <item name="radio.active">200</item>        <!-- ~200mA -->
     <item name="radio.scanning">10</item>       <!-- cellular radio scanning for signal, ~10mA -->
     <item name="gps.on">50</item>               <!-- ~50mA -->
