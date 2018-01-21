@@ -81,6 +81,12 @@
 /dev/madev0                                                     u:object_r:madev0_device:s0
 /dev/irtx                                                       u:object_r:irtx_device:s0
 
+# Services
+/system/bin/spm_loader                                          u:object_r:spm_loader_exec:s0
+
+# Hardware nodes
+/dev/spm                                                        u:object_r:spm_device:s0
+
 # Sockets
 /dev/socket/rild[2-4]                                           u:object_r:rild_socket:s0
 /dev/socket/rild-atci                                           u:object_r:rild_socket:s0

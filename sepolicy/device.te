@@ -43,3 +43,6 @@ type protect1_device, dev_type;
 type protect2_device, dev_type;
 type logo_block_device, dev_type;
 type mmc_device, dev_type;
+
+# SPM
+type spm_device, dev_type;
