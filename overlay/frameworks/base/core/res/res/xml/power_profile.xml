@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <device name="Android">
 
-    <!-- Most values are the incremental current used by a feature,
-        in mA (measured at nominal voltage).
-        The default values are deliberately incorrect dummy values.
-        OEM's must measure and provide actual values before
-        hipping a device.
-        Example real-world values are given in comments, but they
-        are totally dependent on the platform and can vary
-        significantly, so should be measured on the shipping platform
-        with a power meter. -->
+    <!-- Most values are the incremental current used by a feature, in mA (measured at nominal voltage).
+         The default values are deliberately incorrect dummy values. OEM's must measure and provide
+         actual values before shipping a device. Example real-world values are given in comments, but
+         they are totally dependent on the platform and can vary significantly, so should be measured
+         on the shipping platform with a power meter. -->
     <item name="none">0</item>
-    <item name="screen.on">200</item>         <!-- ~200mA -->
-    <item name="screen.full">300</item>       <!-- ~300mA -->
-    <item name="bluetooth.active">10</item>   <!-- Bluetooth data transfer, ~10mA -->
-    <item name="bluetooth.on">0.1</item>      <!-- Bluetooth on & connectable, but not connected, ~0.1mA -->
-    <item name="wifi.on">3</item>             <!-- ~3mA -->
-    <item name="wifi.active">200</item>       <!-- WIFI data transfer, ~200mA -->
-    <item name="wifi.scan">100</item>         <!-- WIFI network scanning, ~100mA -->
-    <item name="dsp.audio">10</item>          <!-- ~10mA -->
-    <item name="dsp.video">50</item>          <!-- ~50mA -->
-    <item name="camera.flashlight">160</item> <!-- Avg. power for camera flash, ~160mA -->
-    <item name="camera.avg">550</item>        <!-- Avg. power use of camera in standard usecases, ~550mA -->
-    <item name="radio.active">200</item>      <!-- ~200mA -->
-    <item name="radio.scanning">10</item>     <!-- Cellular radio scanning for signal, ~10mA -->
-    <item name="gps.on">50</item>             <!-- ~50mA -->
+    <item name="screen.on">200</item>         <!-- ~200.0mA -->
+    <item name="screen.full">300</item>       <!-- ~300.0mA -->
+    <item name="bluetooth.active">10</item>   <!-- ~ 10.0mA - Bluetooth data transfer -->
+    <item name="bluetooth.on">0.1</item>      <!-- ~  0.1mA - Bluetooth on & connectable, but not connected -->
+    <item name="wifi.on">3</item>             <!-- ~  3.0mA -->
+    <item name="wifi.active">200</item>       <!-- ~200.0mA - WIFI data transfer -->
+    <item name="wifi.scan">100</item>         <!-- ~100.0mA - WIFI network scanning -->
+    <item name="dsp.audio">100</item>         <!-- ~ 10.0mA -->
+    <item name="dsp.video">50</item>          <!-- ~ 50.0mA -->
+    <item name="camera.flashlight">0.1</item> <!-- ~160.0mA - Avg. power for camera flash -->
+    <item name="camera.avg">0.1</item>        <!-- ~550.0mA - Avg. power use of camera in standard usecases -->
+    <item name="radio.active">200</item>      <!-- ~200.0mA -->
+    <item name="radio.scanning">10</item>     <!-- ~ 10.0mA - cellular radio scanning for signal -->
+    <item name="gps.on">50</item>             <!-- ~ 50.0mA -->
 
     <!-- Current consumed by the radio at different signal strengths, when paging -->
     <array name="radio.on">
@@ -32,137 +28,23 @@
         <value>1</value> <!-- ~1mA -->
     </array>
 
-    <!-- CPU Clusters -->
-    <array name="cpu.clusters.cores">
-        <value>4</value> <!-- 4x ARM Cortex-A53 @ 1.4GHz -->
-        <value>4</value> <!-- 4x ARM Cortex-A53 @ 1.85GHz -->
-        <value>2</value> <!-- 2x ARM Cortex-A72 @ 2.3GHz -->
+    <!-- Different CPU speeds -->
+    <array name="cpu.speeds">
+        <value>400000</value> <!-- 400 MHz CPU speed -->
     </array>
 
-    <!-- CPU Cluster 1 - 4x ARM Cortex-A53 @ 1.4GHz -->
-    <array name="cpu.speeds.cluster0">
-        <value>221000</value>
-        <value>338000</value>
-        <value>416000</value>
-        <value>481000</value>
-        <value>559000</value>
-        <value>624000</value>
-        <value>715000</value>
-        <value>806000</value>
-        <value>897000</value>
-        <value>949000</value>
-        <value>1092000</value>
-        <value>1118000</value>
-        <value>1222000</value>
-        <value>1287000</value>
-        <value>1339000</value>
-        <value>1391000</value>
-    </array>
-
-    <array name="cpu.active.cluster0">
-        <value>13</value>
-        <value>14</value>
-        <value>15</value>
-        <value>16</value>
-        <value>18</value>
-        <value>20</value>
-        <value>23</value>
-        <value>25</value>
-        <value>30</value>
-        <value>32</value>
-        <value>35</value>
-        <value>39</value>
-        <value>42</value>
-        <value>48</value>
-        <value>53</value>
-        <value>59</value>
-    </array>
-
-    <!-- CPU Cluster 1 - 4x ARM Cortex-A53 @ 1.85GHz -->
-    <array name="cpu.speeds.cluster1">
-        <value>325000</value>
-        <value>468000</value>
-        <value>559000</value>
-        <value>650000</value>
-        <value>741000</value>
-        <value>832000</value>
-        <value>949000</value>
-        <value>1092000</value>
-        <value>1209000</value>
-        <value>1274000</value>
-        <value>1417000</value>
-        <value>1495000</value>
-        <value>1625000</value>
-        <value>1703000</value>
-        <value>1781000</value>
-        <value>1846000</value>
-    </array>
-
-    <array name="cpu.active.cluster1">
-        <value>20</value>
-        <value>27</value>
-        <value>28</value>
-        <value>30</value>
-        <value>31</value>
-        <value>33</value>
-        <value>38</value>
-        <value>44</value>
-        <value>62</value>
-        <value>64</value>
-        <value>66</value>
-        <value>69</value>
-        <value>73</value>
-        <value>85</value>
-        <value>95</value>
-        <value>107</value>
-    </array>
-
-    <!-- CPU Cluster 1 - 2x ARM Cortex-A72 @ 2.3GHz -->
-    <array name="cpu.speeds.cluster2">
-        <value>338000</value>
-        <value>676000</value>
-        <value>845000</value>
-        <value>1001000</value>
-        <value>1131000</value>
-        <value>1248000</value>
-        <value>1378000</value>
-        <value>1495000</value>
-        <value>1677000</value>
-        <value>1781000</value>
-        <value>1989000</value>
-        <value>2093000</value>
-        <value>2119000</value>
-        <value>2171000</value>
-        <value>2197000</value>
-        <value>2314000</value>
-    </array>
-
-    <array name="cpu.active.cluster2">
-        <value>48</value>
-        <value>81</value>
-        <value>102</value>
-        <value>117</value>
-        <value>130</value>
-        <value>139</value>
-        <value>148</value>
-        <value>158</value>
-        <value>182</value>
-        <value>195</value>
-        <value>212</value>
-        <value>235</value>
-        <value>257</value>
-        <value>285</value>
-        <value>305</value>
-        <value>330</value>
-    </array>
-
-    <!-- CPU idle power consumption -->
+    <!-- Current when CPU is idle -->
     <item name="cpu.idle">100</item>
+
+    <!-- Current at each CPU speed, as per 'cpu.speeds' -->
+    <array name="cpu.active">
+        <value>100</value>  <!-- ~100mA -->
+    </array>
 
     <!-- This is the battery capacity in mAh (measured at nominal voltage) -->
     <item name="battery.capacity">3180</item>
 
-    <!-- WIFI Scan -->
+    <!-- WIFI -->
     <array name="wifi.batchedscan">
         <value>.2</value>  <!-- 1-8/hr -->
         <value>2</value>   <!-- 9-64/hr -->
