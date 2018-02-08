@@ -8,7 +8,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Inherit from hardware-specific part of the product configuration
-$(call inherit-product, device/vernee/apollo_lite/device.mk)
+$(call inherit-product, device/vernee/apollo_lite/Device.mk)
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)

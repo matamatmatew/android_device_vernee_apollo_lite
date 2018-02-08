@@ -1,14 +1,15 @@
+
 import init.mt6797.usb.rc
 import init.modem.rc
 
-on early-init
-    # Turn off backlight on blank
-    write /sys/class/leds/lcd-backlight/trigger "backlight"
+
+#---------------------------------------------------------------------------------------------------
+
 
 on init
-    export LD_PRELOAD "libxlog.so:libmtk_symbols.so"
+    export LD_PRELOAD "libmtk_symbols.so"
 
-    # mount points
+    # Mount points
     mkdir /protect_f 0771 system system
     mkdir /protect_s 0771 system system
     mkdir /persist   0771 system system
@@ -17,23 +18,37 @@ on init
     chown root system /dev/kmsg
     chmod 0660 /dev/kmsg
 
+
+#---------------------------------------------------------------------------------------------------
+
+
 on charger
     mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /system ro wait
+    chmod 0666 /dev/kmsg
+    write /sys/devices/platform/battery_meter/FG_daemon_log_level 7
     start fuelgauged
+    start kpoc_charger
+    start servicemanager
+
+
+#---------------------------------------------------------------------------------------------------
+
 
 on fs
     mount_all /fstab.mt6797
 
+
+#---------------------------------------------------------------------------------------------------
+
+
 on post-fs
-#    symlink /sdcard /storage/sdcard0
+    symlink /sdcard /storage/sdcard0
 
     chown system system /protect_f
     chmod 0770 /protect_f
 
     chown system system /protect_s
     chmod 0770 /protect_s
-
-    mkdir /protect_s/properties 0770 system system
 
     mkdir /nvdata/APCFG 0770 system camera
     mkdir /nvdata/APCFG/APRDCL 0770 system camera
@@ -72,6 +87,10 @@ on post-fs
     chown system gps /dev/gps
     chmod 0660 /dev/stpgps
     chown gps gps /dev/stpgps
+
+
+#---------------------------------------------------------------------------------------------------
+
 
 on post-fs-data
     chown root system /nvdata
@@ -326,7 +345,7 @@ on post-fs-data
     chown system camera /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
     chmod 0660 /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
 
-    # change partition permission
+    # Change partition permission
     chmod 0640 /mtd@sec_ro
     chown root system /mtd@sec_ro
 
@@ -390,8 +409,10 @@ on post-fs-data
 
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 
@@ -400,25 +421,29 @@ on post-fs-data
     # Smartwake
     chown system system /sys/android_touch/gesture
 
-    # Hall sensor enabler
-    chown system system /sys/hall_enabler/enable
-    chmod 0755 /sys/hall_enabler/enable
+
+#---------------------------------------------------------------------------------------------------
+
 
 on boot
+
     write /proc/sys/vm/dirty_writeback_centisecs 300
     chmod 0660 /sys/power/autosleep
 
     chown system system /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
     chmod 0660 /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
-    chown root   system /sys/kernel/debug/binder/transaction_log_enable
-    chown root   system /sys/kernel/debug/binder/perf_evalue
+
+    chown root system /sys/kernel/debug/binder/transaction_log_enable
+    chown root system /sys/kernel/debug/binder/perf_evalue
 
     chown system /sys/module/mlog/parameters/do_mlog
     chown system /sys/module/mlog/parameters/timer_intval
 
     chmod 0664 /sys/class/leds/lcd-backlight/brightness
-    chown root   radio  /sys/class/leds/lcd-backlight/duty
-    chown root   radio  /sys/class/leds/lcd-backlight/div
+
+    chown root radio  /sys/class/leds/lcd-backlight/duty
+    chown root radio  /sys/class/leds/lcd-backlight/div
+
     chown system system /sys/class/leds/lcd-backlight/trigger
     chown system system /sys/class/leds/button-backlight/trigger
     chown system system /sys/class/leds/keyboard-backlight/trigger
@@ -439,8 +464,8 @@ on boot
     chown system system /proc/hps/up_threshold
     chmod 0660 /proc/hps/up_threshold
 
-# This is the Processor Power Management
-# Needed for Voltage regulating, temperature compensation (thermal throttling), etc
+    # This is the Processor Power Management
+    # Needed for Voltage regulating, temperature compensation (thermal throttling), etc
     chown system system /proc/ppm/mode
     chmod 0660 /proc/ppm/mode
     chown system system /proc/ppm/policy/userlimit_min_cpu_freq
@@ -464,7 +489,7 @@ on boot
     chown system system /proc/cpufreq/cpufreq_limited_max_freq_by_user
     chmod 0660 /proc/cpufreq/cpufreq_limited_max_freq_by_user
     
-    # change permissions about terminal
+    # Change permissions about terminal
     chown root radio /proc/net/vlan/config
     chmod 0640 /proc/net/vlan/config
     chown root radio /proc/net/ip6_tables_matches
@@ -491,33 +516,9 @@ on boot
     chmod 0660 /dev/ttyMT2
     chown system system /dev/ttyMT2
 
-# Hall sensor enabler
-on property:ro.hall.sensor.enabled=1
-    write /sys/hall_enabler/enable 1
 
-on property:ro.board.platform=mt6753
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1300000
+#---------------------------------------------------------------------------------------------------
 
-on property:vold.decrypt=trigger_reset_main
-    start stop_modem
-    setprop sys.boot_completed 0
-    setprop dev.bootcomplete 0
-
-on property:vold.decrypt=trigger_restart_min_framework
-    start start_modem
-    start msensord
-
-on property:vold.decrypt=trigger_restart_framework
-    start nvram_daemon
-    start start_modem
-    start msensord
-
-on property:vold.decrypt=trigger_shutdown_framework
-    start stop_modem
-    setprop sys.boot_completed 0
-    setprop dev.bootcomplete 0
 
 service stop_modem /system/bin/md_ctrl 0
     class main
@@ -541,48 +542,17 @@ service pq /system/bin/pq
     group system graphics
     oneshot
 
-#
-# MTK Wi-Fi related services (Begin)
-#
-
-# monitor property and power on/off wlan
-on property:wlan.driver.status=ok
-    write /dev/wmtWifi "1"
-
-on property:wlan.driver.status=unloaded
-    write /dev/wmtWifi "0"
-
-service p2p_supplicant /system/bin/wpa_supplicant \
-    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
-    -I/system/etc/wifi/wpa_supplicant_overlay.conf -N \
-    -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -dd \
-    -I/system/etc/wifi/p2p_supplicant_overlay.conf \
-    -O/data/misc/wifi/sockets -g@android:wpa_wlan0
-    #   we will start as root and wpa_supplicant will switch to user wifi
-    #   after setting up the capabilities required for WEXT
-    #   user wifi
-    #   group wifi inet keystore
+service p2p_supplicant /system/bin/wpa_supplicant -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -I/system/etc/wifi/wpa_supplicant_overlay.conf -N -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -dd -I/system/etc/wifi/p2p_supplicant_overlay.conf -O/data/misc/wifi/sockets -g@android:wpa_wlan0
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
-service wpa_supplicant /system/bin/wpa_supplicant \
-    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin -dd \
-    -I/system/etc/wifi/wpa_supplicant_overlay.conf \
-    -O/data/misc/wifi/sockets -g@android:wpa_wlan0
-    #   we will start as root and wpa_supplicant will switch to user wifi
-    #   after setting up the capabilities required for WEXT
-    #   user wifi
-    #   group wifi inet keystore
+service wpa_supplicant /system/bin/wpa_supplicant -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin -dd -I/system/etc/wifi/wpa_supplicant_overlay.conf -O/data/misc/wifi/sockets -g@android:wpa_wlan0
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
-
-#
-# MTK Wi-Fi related services (End)
-#
 
 # GPS
 service agpsd /system/bin/mtk_agpsd
@@ -604,10 +574,6 @@ service mnld /system/xbin/mnld
     group gps inet misc sdcard_rw sdcard_r media_rw system
     socket mnld stream 660 gps system
 
-#
-# sensor service (begin)
-#
-
 service msensord /system/bin/msensord
     class main
     oneshot
@@ -618,21 +584,10 @@ service memsicd3416x /system/bin/memsicd3416x
     group system
     class main
 
-#
-# sensor service (end)
-#
-
-#
-# emsvr service (start)
-#
 service emsvr /system/bin/em_svr
     class main
     user system
     group system radio diag
-
-#
-# emsvr service (end)
-#
 
 # Thermal
 service thermal_manager /system/bin/thermal_manager
@@ -658,10 +613,8 @@ service conn_launcher /system/bin/6620_launcher -p /system/etc/firmware/
     class core
 
 # Charger
-service charger /sbin/healthd -c
+service kpoc_charger /system/bin/kpoc_charger
     class charger
-    critical
-    seclabel u:r:healthd:s0
 
 # Fingerprint
 service etsd /system/bin/etsd
@@ -672,14 +625,33 @@ service fingerprintd /system/bin/fingerprintd
     class late_start
     user root
 
-# SPM firmware loader
-service spm_loader /system/bin/spm_loader
-    class core
-    user root
-    group root
 
-# Fix TTL 64 (MTS and other)
-service freebie /system/bin/iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
-    class main
-    oneshot
+#---------------------------------------------------------------------------------------------------
+
+
+on property:vold.decrypt=trigger_reset_main
+    start stop_modem
+    setprop sys.boot_completed 0
+    setprop dev.bootcomplete 0
+
+on property:vold.decrypt=trigger_restart_min_framework
+    start start_modem
+    start msensord
+
+on property:vold.decrypt=trigger_restart_framework
+    start nvram_daemon
+    start start_modem
+    start msensord
+
+on property:vold.decrypt=trigger_shutdown_framework
+    start stop_modem
+    setprop sys.boot_completed 0
+    setprop dev.bootcomplete 0
+
+# Monitor property and power on/off wlan
+on property:wlan.driver.status=ok
+    write /dev/wmtWifi "1"
+
+on property:wlan.driver.status=unloaded
+    write /dev/wmtWifi "0"
 

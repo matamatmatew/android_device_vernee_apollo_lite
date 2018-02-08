@@ -9,19 +9,19 @@ Vernee Apollo Lite was released in June 2016.
 
 ## Device Specifications
 
-| Device       | Vernee Apollo Lite                                                                  |
-| -----------: | :---------------------------------------------------------------------------------- |
-| SoC          | Mediatek MT6797 Helio X20                                                           |
-| CPU          | 2x Cortex-A72 @ 2.3GHz <br /> 4x Cortex-A53 @ 1.85GHz <br /> 4x Cortex-A53 @ 1.4GHz |
-| GPU          | ARM Mali-T880 MP4 @ 780MHz                                                          |
-| Memory       | 4GB (LPDDR3 800MHz)                                                                 |
-| Storage      | 32GB (eMMC 5.1)                                                                     |
-| Battery      | 3180mAh Non-removable Lithium-Polymer                                               |
-| Display      | 1920 x 1080 px, 5.5 inches (401 PPI)                                                |
-| Rear camera  | 16 MPx, f/2.2, PDAF autofocus (Samsung S5K3P3)                                      |
-| Front camera | 5 MPx, f/2.2 (Samsung S5K5E8)                                                       |
-| Dimensions   | 152 x 76.2 x 9.2 mm                                                                 |
-| Weight       | 175g                                                                                |
+| Device       | Vernee Apollo Lite                                                                    |
+| -----------: | :------------------------------------------------------------------------------------ |
+| SoC          | Mediatek MT6797 Helio X20                                                             |
+| CPU          | 2x Cortex-A72 @ 2.31GHz <br /> 4x Cortex-A53 @ 1.85GHz <br /> 4x Cortex-A53 @ 1.39GHz |
+| GPU          | ARM Mali-T880 MP4 @ 780MHz                                                            |
+| Memory       | 4GB (LPDDR3 800MHz)                                                                   |
+| Storage      | 32GB (eMMC 5.1)                                                                       |
+| Battery      | 3180mAh Non-removable Lithium-Polymer                                                 |
+| Display      | 1920 x 1080 px, 5.5 inches (401 PPI)                                                  |
+| Rear camera  | 16 MPx, f/2.2, PDAF autofocus (Samsung S5K3P3)                                        |
+| Front camera | 5 MPx, f/2.2 (Samsung S5K5E8)                                                         |
+| Dimensions   | 152 x 76.2 x 9.2 mm                                                                   |
+| Weight       | 175g                                                                                  |
 
 ## Device Picture
 

@@ -81,10 +81,7 @@
 <!ATTLIST ExportVideoProfile profile CDATA #REQUIRED>
 <!ATTLIST ExportVideoProfile level CDATA #REQUIRED>
 ]>
-<!--
-     This file is used to declare the multimedia profiles and capabilities
-     on an android-powered device.
--->
+
 <MediaSettings>
     <!-- Each camcorder profile defines a set of predefined configuration parameters -->
     <CamcorderProfiles cameraId="0">
