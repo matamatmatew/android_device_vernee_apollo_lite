@@ -1,4 +1,3 @@
-
 mkdir /data/misc/sensors 0664 system system
 
 service msensord /system/bin/msensord
@@ -6,63 +5,57 @@ service msensord /system/bin/msensord
     group system
     oneshot
 
+service akmd8963 /system/bin/akmd8963
+    disabled
+    user system
+    group system
 
-#---------------------------------------------------------------------------------------------------
 
-
+on post-fs
 #
 # Connectivity related modules and character device nodes (Begin)
 #
-
-on post-fs
-
-    # For 662x_launcher
+    # for 662x_launcher
     chmod 0660 /dev/ttyMT2
     chown system system /dev/ttyMT2
 
-    # WMT
+    insmod /system/lib/modules/mtk_wmt_detect.ko
+    
+    # Create char device file for WMT, GPS, BT, FM, WIFI
     mknod /dev/stpwmt c 190 0;
+    mknod /dev/stpgps c 191 0;
+    mknod /dev/stpbt  c 192 0;
+    mknod /dev/fm     c 193 0;
     chmod 0660 /dev/stpwmt
     chown system system /dev/stpwmt
     chmod 0660 /dev/wmtdetect
     chown system system /dev/wmtdetect
-
-    # GPS
-    mknod /dev/stpgps c 191 0;
+ 		
+    # FM Radio device, FIXME: this is not a proper way to set permissions
+    chmod 0666 /dev/fm
+ 
+    mknod /dev/wmtWifi c 153 0
+    chmod 0666 /dev/wmtWifi
     chmod 0660 /dev/stpgps
-
-    # BT
-    mknod /dev/stpbt c 192 0;
     chmod 0660 /dev/stpbt
     chown bluetooth radio /dev/stpbt
 
-    # FM
-    mknod /dev/fm c 193 0;
-    chmod 0666 /dev/fm
-
-    # WIFI
-    mknod /dev/wmtWifi c 153 0;
-    chmod 0666 /dev/wmtWifi
-
 #
-# Connectivity related modules and character device nodes (End)
+# Connectivity related modules and character device nodes (Ends)
 #
 
-
-#---------------------------------------------------------------------------------------------------
+on boot
 
 
 #
 # Connectivity related services (Begin)
 #
 
-on boot
-
 service wmtLoader /system/bin/wmt_loader
     user root
     group root
     oneshot
-
+    
 service conn_launcher /system/bin/6620_launcher -p /system/etc/firmware/
     user system
     group system
@@ -70,4 +63,9 @@ service conn_launcher /system/bin/6620_launcher -p /system/etc/firmware/
 #
 # Connectivity related services (End)
 #
+
+service spm_script /system/bin/spm_loader
+    user root
+    group root
+    oneshot
 
