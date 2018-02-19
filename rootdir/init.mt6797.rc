@@ -406,6 +406,10 @@ on post-fs-data
     chmod 0755 /sys/hall_enabler/enable
 
 on boot
+
+    # Faster storage
+    write /sys/block/mmcblk0/queue/read_ahead_kb 2048
+
     write /proc/sys/vm/dirty_writeback_centisecs 300
     chmod 0660 /sys/power/autosleep
 
