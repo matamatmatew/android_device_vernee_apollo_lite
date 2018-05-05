@@ -11,4 +11,5 @@ allow audioserver sysfs:file { open read write };
 allow audioserver sysfs_devinfo:file { open read write };
 allow audioserver sysfs_ccci:file r_file_perms;
 allow audioserver sysfs_ccci:dir search;
-allow audioserver audiohal_prop:property_service set;
+
+set_prop(audioserver, audiohal_prop);

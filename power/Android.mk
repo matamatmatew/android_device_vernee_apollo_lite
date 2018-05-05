@@ -15,7 +15,6 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-
 LOCAL_MODULE := power.mt6797
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := power.c

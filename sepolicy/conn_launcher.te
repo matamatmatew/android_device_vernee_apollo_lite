@@ -4,6 +4,7 @@ type conn_launcher, domain, domain_deprecated;
 init_daemon_domain(conn_launcher)
 
 allow conn_launcher stpwmt_device:chr_file rw_file_perms;
-allow conn_launcher wmt_prop:property_service set;
+
+set_prop(conn_launcher, wmt_prop);
 
 unix_socket_connect(conn_launcher, property, init)

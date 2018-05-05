@@ -22,9 +22,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/audio/a2dp_audio_policy_configuration.xml:/system/etc/a2dp_audio_policy_configuration.xml
 
+
 # Browser
 PRODUCT_PACKAGES += \
     Gello
+
 
 # Camera
 PRODUCT_COPY_FILES += \
@@ -37,15 +39,18 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     Snap
 
+
 # Charger
 PRODUCT_PACKAGES += \
     charger
+
 
 # Codecs
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml
+
 
 # Configurations
 PRODUCT_COPY_FILES += \
@@ -56,8 +61,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     messaging 
 
+
 # Dalvik
 PRODUCT_TAGS += dalvik.gc.type-precise
+
 
 # Default.prop
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -72,9 +79,16 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.oem_unlock_supported=1 \
     ro.secure=0
 
+
 # Display
 PRODUCT_PACKAGES += \
     libion
+
+
+# Doze
+PRODUCT_PACKAGES += \
+    MeizuDoze
+
 
 # Filesystem Management Tools
 PRODUCT_PACKAGES += \
@@ -93,12 +107,14 @@ PRODUCT_PACKAGES += \
     mkfs.ntfs \
     mount.ntfs
 
+
 # Fingerprint
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml
 
 PRODUCT_PACKAGES += \
     fingerprintd
+
 
 # FMRadio
 MTK_FM_SUPPORT := true
@@ -107,22 +123,27 @@ PRODUCT_PACKAGES += \
     libfmjni \
     FMRadio
 
+
 # GPS
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml
+
 
 # Hardware-Specific Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:system/etc/permissions/android.hardware.vulkan.level.xml \
     frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:system/etc/permissions/android.hardware.vulkan.version.xml
 
+
 # Lights
 PRODUCT_PACKAGES += \
     lights.mt6797
 
+
 # Malloc Svelte
 MALLOC_SVELTE := true
+
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -131,17 +152,21 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
 	$(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
+
 # Mediatek
 PRODUCT_PACKAGES += \
     libstlport \
     libmtk_symbols \
     libxlog
 
+
 # Minikin
 USE_MINIKIN := true
 
+
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -157,15 +182,18 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
+
 # Power
 PRODUCT_PACKAGES += \
     power.default \
     power.mt6797
 
+
 # Radio Dependencies
 PRODUCT_PACKAGES += \
     muxreport \
     terservice
+
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
@@ -180,20 +208,15 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/meta_init.rc:root/meta_init.rc \
     $(LOCAL_PATH)/rootdir/ueventd.mt6797.rc:root/ueventd.mt6797.rc
 
-# Recovery-Allowed Devices
-TARGET_OTA_ASSERT_DEVICE := lite,apollo_lite,k15tb_a
 
-# RIL
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.kernel.android.checkjni=0 \
-    ro.telephony.ril_class=MediaTekRIL \
-    ro.telephony.ril.config=fakeiccid \
-    ro.com.android.mobiledata=false
+# Recovery-Allowed Devices
+TARGET_OTA_ASSERT_DEVICE := apollo_lite,k15tb_a
+
 
 # Screen Density
-PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_CONFIG := normal xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
-PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi 280dpi hdpi tvdpi mdpi ldpi
+
 
 # Sensors
 PRODUCT_COPY_FILES += \
@@ -208,9 +231,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libem_sensor_jni
 
+
 # Tethering
 PRODUCT_PROPERTY_OVERRIDES += \
     net.tethering.noprovisioning=true
+
 
 # Thermal
 PRODUCT_COPY_FILES += \
@@ -222,18 +247,22 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal/.thermal_policy_00:system/etc/.tp/.thermal_policy_02 \
     $(LOCAL_PATH)/configs/thermal/.thermal_policy_00:system/etc/.tp/.thermal_policy_03
 
+
 # TWRP
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/etc/twrp.fstab:recovery/root/etc/twrp.fstab
+
 
 # USB
 PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory
 
+
 # Wallpaper Picker
 PRODUCT_PACKAGES += \
     WallpaperPicker
+
 
 # WIFI
 PRODUCT_COPY_FILES += \

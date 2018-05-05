@@ -1,10 +1,6 @@
 import init.mt6797.usb.rc
 import init.modem.rc
 
-on early-init
-    # Turn off backlight on blank
-    write /sys/class/leds/lcd-backlight/trigger "backlight"
-
 on init
     export LD_PRELOAD "libxlog.so:libmtk_symbols.so"
 
@@ -19,16 +15,18 @@ on init
 
 on charger
     mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /system ro wait
-    chmod 0660 /dev/spm
-    chown system system /dev/spm
     start spm_script
     chmod 0666 /dev/kmsg
+    write /sys/devices/platform/battery_meter/FG_daemon_log_level 7
     start fuelgauged
+    start kpoc_charger
+    start servicemanager
 
 on fs
     mount_all /fstab.mt6797
 
 on post-fs
+#    symlink /sdcard /storage/sdcard0
 
     chown system system /protect_f
     chmod 0770 /protect_f
@@ -77,7 +75,6 @@ on post-fs
     chown gps gps /dev/stpgps
 
 on post-fs-data
-
     chown root system /nvdata
     chmod 0771 /nvdata
     rm /data/nvram
@@ -444,8 +441,8 @@ on boot
     chown system system /proc/hps/up_threshold
     chmod 0660 /proc/hps/up_threshold
 
-    # This is the Processor Power Management
-    # Needed for Voltage regulating, temperature compensation (thermal throttling), etc
+# This is the Processor Power Management
+# Needed for Voltage regulating, temperature compensation (thermal throttling), etc
     chown system system /proc/ppm/mode
     chmod 0660 /proc/ppm/mode
     chown system system /proc/ppm/policy/userlimit_min_cpu_freq
@@ -663,10 +660,8 @@ service conn_launcher /system/bin/6620_launcher -p /system/etc/firmware/
     class core
 
 # Charger
-service charger /sbin/healthd -c
+service kpoc_charger /system/bin/kpoc_charger
     class charger
-    critical
-    seclabel u:r:healthd:s0
 
 # Fingerprint
 service etsd /system/bin/etsd
@@ -677,7 +672,7 @@ service fingerprintd /system/bin/fingerprintd
     class late_start
     user root
 
-service spm_script /system/bin/spm_loader
+service spm_script /vendor/bin/spm_loader
     user root
     group root
     class core
