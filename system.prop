@@ -98,8 +98,9 @@ wifi.direct.interface=p2p0
 
 # WMT
 persist.mtk.wcn.combo.chipid=-1
-persist.mtk.wcn.patch.version=-1
 persist.mtk.wcn.dynamic.dump=0
-service.wcn.driver.ready=no
+persist.mtk.wcn.fwlog.status=no
+persist.mtk.wcn.patch.version=-1
 service.wcn.coredump.mode=0
+service.wcn.driver.ready=no
 

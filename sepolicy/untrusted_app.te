@@ -1,0 +1,24 @@
+# Init
+allow untrusted_app userinit_prop:file { open getattr };
+
+# ADB
+allow untrusted_app adbsecure_prop:file { open getattr };
+allow untrusted_app adbtcp_prop:file { open getattr };
+
+# Recovery
+allow untrusted_app recovery_prop:file { open getattr };
+
+# Encryption
+allow untrusted_app vold_encryption_type_prop:file { open getattr };
+
+# Safemode
+allow untrusted_app safemode_prop:file { open getattr };
+
+# Storage
+allow untrusted_app mmc_prop:file { open getattr };
+
+# Logging
+allow untrusted_app logpersistd_logging_prop:file { open getattr };
+allow untrusted_app device_logging_prop:file { open getattr };
+
+allow untrusted_app sysfs:file { read };

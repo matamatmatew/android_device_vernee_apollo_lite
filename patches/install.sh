@@ -1,8 +1,7 @@
 echo $1
 
 rootdirectory="$PWD"
-dirs="bionic
-      external/wpa_supplicant_8
+dirs="external/wpa_supplicant_8
       frameworks/av
       frameworks/base
       frameworks/native

@@ -143,7 +143,7 @@
     </array>
 
     <!-- Current when CPU is idle -->
-    <item name="cpu.idle">4.9</item>
+    <item name="cpu.idle">9.8</item>
 
     <!-- Current when CPU is awake -->
     <item name="cpu.awake">40</item>
@@ -161,3 +161,4 @@
     </array>
 
 </device>
+

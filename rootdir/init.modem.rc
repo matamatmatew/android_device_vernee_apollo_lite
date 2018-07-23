@@ -1,4 +1,5 @@
 on early-init
+
     write /sys/class/net/ccmni0/queues/rx-0/rps_cpus "3ff"
     write /sys/class/net/ccmni1/queues/rx-0/rps_cpus "3ff"
     write /sys/class/net/ccmni2/queues/rx-0/rps_cpus "3ff"
@@ -9,7 +10,12 @@ on early-init
     setprop net.perf.cpu.core 4,4,0,0,0,0
     setprop net.perf.cpu.freq 1118000,1391000,0,0,0,0
 
+
+#---------------------------------------------------------------------------------------------------
+
+
 on post-fs-data
+
     # Modem related device nodes
     mkdir /data/nvram/md 0770 root system
     chown radio radio /sys/kernel/ccci/boot
@@ -34,6 +40,10 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
+
+#---------------------------------------------------------------------------------------------------
+
+
 service gsm0710muxd /system/bin/gsm0710muxd -s /dev/ttyC0 -f 512 -n 8 -m basic
     class core
     user root
@@ -44,13 +54,6 @@ service gsm0710muxd /system/bin/gsm0710muxd -s /dev/ttyC0 -f 512 -n 8 -m basic
 service gsm0710muxdmd2 /system/bin/gsm0710muxdmd2 -s /dev/ccci2_tty0 -f 512 -n 8 -m basic
     class core
     user root
-    group radio cache inet misc
-    disabled
-    oneshot
-
-service muxreport-daemon /system/bin/muxreport
-    class core
-    user radio
     group radio cache inet misc
     disabled
     oneshot
@@ -100,6 +103,19 @@ service ril-daemon-mtkmd2 /system/bin/mtkrildmd2
     disabled
     oneshot
 
+service muxreport-daemon /system/bin/muxreport
+    class core
+    user radio
+    group radio cache inet misc
+    disabled
+    oneshot
+
+service terservice /system/bin/terservice
+    class core
+    user radio
+    group radio cache inet misc
+    oneshot
+
 #
 #  Modem related services (Begin)
 #
@@ -128,22 +144,10 @@ service ccci3_mdinit /system/bin/ccci_mdinit 2
     class core
     oneshot
 
-service ccci_rpcd /system/bin/ccci_rpcd 0
-    user radio
-    group radio cache inet misc
-    class core
-    oneshot
-
-#
 #
 #  Modem related services (End)
 #
 
-service terservice /system/bin/terservice
-    class core
-    user radio
-    group radio cache inet misc
-    oneshot
-
 on property:ril.muxreport=1
     start muxreport-daemon
+

@@ -14,7 +14,14 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
 <resources>
+
+    <!-- Device does support call recording -->
     <bool name="call_recording_enabled">true</bool>
+
+    <!-- Audio source for call recording -->
     <integer name="call_recording_audio_source">4</integer>
+
 </resources>
+

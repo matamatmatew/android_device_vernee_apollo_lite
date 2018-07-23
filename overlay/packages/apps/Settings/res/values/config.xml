@@ -18,6 +18,9 @@
 -->
 
 <resources>
+
     <!-- When true enable gesture setting. -->
     <bool name="config_gesture_settings_enabled">true</bool>
+
 </resources>
+

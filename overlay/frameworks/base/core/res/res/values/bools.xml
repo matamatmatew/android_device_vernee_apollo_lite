@@ -12,5 +12,9 @@
 -->
 
 <resources>
+
+    <!-- Should device use round icons? -->
     <bool name="config_useRoundIcon">true</bool>
+
 </resources>
+

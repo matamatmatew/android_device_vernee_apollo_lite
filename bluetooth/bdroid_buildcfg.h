@@ -4,3 +4,4 @@
 #define BTM_DEF_LOCAL_NAME   "Vernee Apollo Lite"
 
 #endif
+

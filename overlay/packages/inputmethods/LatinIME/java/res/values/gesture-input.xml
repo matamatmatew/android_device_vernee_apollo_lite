@@ -17,6 +17,10 @@
 ** limitations under the License.
 */
 -->
+
 <resources>
+
     <bool name="config_gesture_input_enabled_by_build_config">true</bool>
+
 </resources>
+

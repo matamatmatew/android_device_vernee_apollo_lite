@@ -1,5 +1,12 @@
+# NV Data
 allow kernel nvdata_file:dir search;
 allow kernel nvdata_file:file r_file_perms;
+
 allow kernel self:capability dac_override;
+
+# WiFi
 allow kernel wifi_data_file:dir search;
 allow kernel wifi_data_file:file r_file_perms;
+
+# Storage
+allow kernel storage_file:dir { search };
