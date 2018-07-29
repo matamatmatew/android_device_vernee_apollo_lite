@@ -1,4 +1,2 @@
-set_prop(radio, ril_mux_report_case_prop);
-set_prop(radio, ril_msim_power_prop);
-
-unix_socket_connect(radio, rild, ril-daemon-mtk)
+set_prop(radio, ril_msim_power_prop)
+set_prop(radio, ril_mux_report_case_prop)

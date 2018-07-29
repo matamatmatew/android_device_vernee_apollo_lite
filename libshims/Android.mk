@@ -1,16 +1,12 @@
 LOCAL_PATH := $(call my-dir)
 
+#---------------------------------------------------------------------------------------------------
 
 # Audio
 include $(CLEAR_VARS)
 LOCAL_MODULE := libshim_audio
-
-LOCAL_SRC_FILES := \
-    audio/audio.cpp \
-    audio/icu55.c
-
-LOCAL_SHARED_LIBRARIES := libicuuc
-LOCAL_MODULE_TAGS := optional
+LOCAL_SRC_FILES := audio/audio.cpp
+LOCAL_PROPRIETARY_MODULE := true
 include $(BUILD_SHARED_LIBRARY)
 
 #---------------------------------------------------------------------------------------------------
@@ -25,20 +21,41 @@ include $(BUILD_SHARED_LIBRARY)
 
 #---------------------------------------------------------------------------------------------------
 
-# GPS
+# Camera
 include $(CLEAR_VARS)
-LOCAL_MODULE := libshim_gps
+LOCAL_MODULE := libshim_camera
+LOCAL_SRC_FILES := camera/camera.cpp
+LOCAL_SHARED_LIBRARIES := libdpframework
+LOCAL_PROPRIETARY_MODULE := true
+include $(BUILD_SHARED_LIBRARY)
 
-LOCAL_SRC_FILES := \
-    gps/icu53.c \
-    gps/icu55.c \
-    gps/ssl.c
+#---------------------------------------------------------------------------------------------------
 
-LOCAL_SHARED_LIBRARIES := \
-    libicuuc \
-    libssl
+# GUI
+include $(CLEAR_VARS)
+LOCAL_MODULE := libshim_gui
+LOCAL_SRC_FILES := gui/gui.cpp
+LOCAL_SHARED_LIBRARIES := libgui
+LOCAL_PROPRIETARY_MODULE := true
+include $(BUILD_SHARED_LIBRARY)
 
-LOCAL_MODULE_TAGS := optional
+#---------------------------------------------------------------------------------------------------
+
+# Log
+include $(CLEAR_VARS)
+LOCAL_MODULE := libshim_log
+LOCAL_SRC_FILES := log/log.c
+LOCAL_SHARED_LIBRARIES := liblog
+LOCAL_PROPRIETARY_MODULE := true
+include $(BUILD_SHARED_LIBRARY)
+
+#---------------------------------------------------------------------------------------------------
+
+# OMX
+include $(CLEAR_VARS)
+LOCAL_MODULE := libshim_omx
+LOCAL_SRC_FILES := omx/omx.cpp
+LOCAL_PROPRIETARY_MODULE := true
 include $(BUILD_SHARED_LIBRARY)
 
 #---------------------------------------------------------------------------------------------------
@@ -47,26 +64,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_MODULE := libshim_ui
 LOCAL_SRC_FILES := ui/ui.cpp
-
-LOCAL_SHARED_LIBRARIES := \
-	libbinder \
-	libui
-
-LOCAL_CFLAGS := \
-    -O3 \
-    -Wno-unused-variable \
-    -Wno-unused-parameter
-
-LOCAL_MODULE_TAGS := optional
-include $(BUILD_SHARED_LIBRARY)
-
-#---------------------------------------------------------------------------------------------------
-
-# XLog
-include $(CLEAR_VARS)
-LOCAL_MODULE := libshim_xlog
-LOCAL_SRC_FILES := xlog/xlog.c
-LOCAL_SHARED_LIBRARIES := liblog
-LOCAL_MODULE_TAGS := optional
+LOCAL_SHARED_LIBRARIES := libui
+LOCAL_PROPRIETARY_MODULE := true
 include $(BUILD_SHARED_LIBRARY)
 

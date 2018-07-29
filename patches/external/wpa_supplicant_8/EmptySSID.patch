@@ -3,28 +3,24 @@ From: sandstranger <sandstranger@gmail.com>
 Date: Sat, 25 Mar 2017 10:01:00 +0400
 Subject: Skip the empty SSID in scan message
 
----
-
- src/drivers/driver_nl80211_scan.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
 
 #---------------------------------------------------------------------------------------------------
+
 
 diff --git a/src/drivers/driver_nl80211_scan.c b/src/drivers/driver_nl80211_scan.c
 index c115b6b..25597dc 100644
 --- a/src/drivers/driver_nl80211_scan.c
 +++ b/src/drivers/driver_nl80211_scan.c
-@@ -949,9 +949,10 @@
+@@ -949,9 +949,9 @@
  			wpa_hexdump_ascii(MSG_MSGDUMP, "nl80211: Scan SSID",
  					params->ssids[i].ssid,
  					params->ssids[i].ssid_len);
 -			if (nla_put(msg, i + 1, params->ssids[i].ssid_len,
 -				    params->ssids[i].ssid))
 -				goto fail;
-+                                if (params->ssids[i].ssid_len)
-+                               if (nla_put(msg, i + 1, params->ssids[i].ssid_len,
-+                                           params->ssids[i].ssid))
-+                                       goto fail;
++           if (params->ssids[i].ssid_len)
++               if (nla_put(msg, i + 1, params->ssids[i].ssid_len,params->ssids[i].ssid))
++                   goto fail;
  		}
  		nla_nest_end(msg, ssids);
  	}

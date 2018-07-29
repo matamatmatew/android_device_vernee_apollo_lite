@@ -2,13 +2,9 @@ echo $1
 
 rootdirectory="$PWD"
 dirs="external/wpa_supplicant_8
-      frameworks/av
       frameworks/base
-      frameworks/native
       frameworks/opt/telephony
-      system/core
-      system/netd
-      system/sepolicy"
+      system/core"
 
 # ---------------------------------
 

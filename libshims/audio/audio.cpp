@@ -29,7 +29,7 @@ extern "C" {
     void _ZN7android11AudioSystem25freeVoiceUnlockDLInstanceEv() {
     }
 
-    bool _ZN7android11AudioSystem17stopVoiceUnlockDLEv( ) {
+    bool _ZN7android11AudioSystem17stopVoiceUnlockDLEv() {
         return 0;
     }
 

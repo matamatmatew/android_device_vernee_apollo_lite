@@ -3,23 +3,18 @@ From: DarkKnight6499 <yazad.madan@gmail.com>
 Date: Mon, 19 Dec 2016 03:09:51 +0000
 Subject: MediaTek: Fixing of HWUI crashing
 
----
-
- libs/hwui/Caches.cpp | 13 ++++++-
- 1 file changed, 6 insertions(+), 1 deletions(-)
 
 #---------------------------------------------------------------------------------------------------
+
 
 diff --git a/libs/hwui/Caches.cpp b/libs/hwui/Caches.cpp
 index a8ced9b..6a25466 100644
 --- a/libs/hwui/Caches.cpp
 +++ b/libs/hwui/Caches.cpp
-@@ -83,16 +83,21 @@
- }
- 
+@@ -82,12 +82,17 @@
  void Caches::initExtensions() {
 +#ifndef MTK_HARDWARE
-     if (mExtensions.hasDebugMarker()) {
+     if (extensions().hasDebugMarker()) {
          eventMark = glInsertEventMarkerEXT;
 -
          startMark = glPushGroupMarkerEXT;
@@ -35,6 +30,4 @@ index a8ced9b..6a25466 100644
 +         endMark = endMarkNull;
 +#endif
  }
- 
- void Caches::initConstraints() {
 

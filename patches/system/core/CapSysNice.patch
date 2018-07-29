@@ -3,25 +3,25 @@ From: Dmitry Smirnov <divis1969@gmail.com>
 Date: Mon, 14 Nov 2016 23:30:38 +0300
 Subject: Remove CAP_SYS_NICE from surfaceflinger
 
----
-
- libcutils/fs_config.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
 #---------------------------------------------------------------------------------------------------
 
-diff --git a/libcutils/fs_config.c b/libcutils/fs_config.c
+
+diff --git a/libcutils/fs_config.cpp b/libcutils/fs_config.cpp
 index 68cfcbe..f192386 100644
---- a/libcutils/fs_config.c
-+++ b/libcutils/fs_config.c
-@@ -143,7 +143,8 @@
-     { 00700, AID_SYSTEM,    AID_SHELL,     CAP_MASK_LONG(CAP_BLOCK_SUSPEND), "system/bin/inputflinger" },
+--- a/libcutils/fs_config.cpp
++++ b/libcutils/fs_config.cpp
+@@ -180,12 +143,8 @@
+     { 00750, AID_ROOT,      AID_SHELL,     CAP_MASK_LONG(CAP_SETUID) |
+                                            CAP_MASK_LONG(CAP_SETGID),
+                                               "system/bin/run-as" },
  
-     /* Support FIFO scheduling mode in SurfaceFlinger. */
--    { 00755, AID_SYSTEM,    AID_GRAPHICS,     CAP_MASK_LONG(CAP_SYS_NICE), "system/bin/surfaceflinger" },
-+    /* Disabled for now as this caused LD_PRELOAD and LD_SHIM_LIBS to be sanitized in linker */
-+    //{ 00755, AID_SYSTEM,    AID_GRAPHICS,     CAP_MASK_LONG(CAP_SYS_NICE), "system/bin/surfaceflinger" },
- 
-     { 00750, AID_ROOT,      AID_ROOT,      0, "system/bin/uncrypt" },
-     { 00750, AID_ROOT,      AID_ROOT,      0, "system/bin/install-recovery.sh" },
+-    // Support FIFO scheduling mode in SurfaceFlinger.
+-    { 00755, AID_SYSTEM,    AID_GRAPHICS,  CAP_MASK_LONG(CAP_SYS_NICE),
+-                                              "system/bin/surfaceflinger" },
+-
+     // Support hostapd administering a network interface.
+     { 00755, AID_WIFI,      AID_WIFI,      CAP_MASK_LONG(CAP_NET_ADMIN) |
+                                            CAP_MASK_LONG(CAP_NET_RAW),
+                                               "vendor/bin/hostapd" },
 

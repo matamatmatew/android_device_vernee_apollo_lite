@@ -3,21 +3,15 @@ From: DarkKnight6499 <yazad.madan@gmail.com>
 Date: Mon, 19 Dec 2016 03:24:55 +0000
 Subject: Implement Fake ICCID for legacy RIL
 
----
-
- src/java/com/android/internal/telephony/SubscriptionInfoUpdater.java     | 2 +-
- src/java/com/android/internal/telephony/uicc/IccConstants.java           | 3 +++
- src/java/com/android/internal/telephony/uicc/RuimRecords.java            | 6 ++++--
- src/java/com/android/internal/telephony/uicc/SIMRecords.java             | 6 ++++--
- 4 files changed, 12 insertions(+), 5 deletions(-)
 
 #---------------------------------------------------------------------------------------------------
+
 
 diff --git a/src/java/com/android/internal/telephony/SubscriptionInfoUpdater.java b/src/java/com/android/internal/telephony/SubscriptionInfoUpdater.java
 index 1f68ff3..c6f081c 100644
 --- a/src/java/com/android/internal/telephony/SubscriptionInfoUpdater.java
 +++ b/src/java/com/android/internal/telephony/SubscriptionInfoUpdater.java
-@@ -324,7 +324,7 @@
+@@ -285,7 +285,7 @@
                          mIccId[slotId] = ICCID_STRING_FOR_NO_SIM;
                      }
                  } else {
@@ -27,28 +21,32 @@ index 1f68ff3..c6f081c 100644
                  }
                  logd("sIccId[" + slotId + "] = " + mIccId[slotId]);
 
+
 #---------------------------------------------------------------------------------------------------
+
 
 diff --git a/src/java/com/android/internal/telephony/uicc/IccConstants.java b/src/java/com/android/internal/telephony/uicc/IccConstants.java
 index 061b28f..cd45d36 100644
 --- a/src/java/com/android/internal/telephony/uicc/IccConstants.java
 +++ b/src/java/com/android/internal/telephony/uicc/IccConstants.java
-@@ -122,4 +122,7 @@
+@@ -106,4 +106,7 @@
  
      //UICC access
      static final String DF_ADF = "7FFF";
 +
-+    // CM-Specific : Fake ICCID
++    // Lineage-Specific : Fake ICCID
 +    static final String FAKE_ICCID = "00000000000001";
  }
 
+
 #---------------------------------------------------------------------------------------------------
+
 
 diff --git a/src/java/com/android/internal/telephony/uicc/RuimRecords.java b/src/java/com/android/internal/telephony/uicc/RuimRecords.java
 index 4e486d2..9e4ebef 100644
 --- a/src/java/com/android/internal/telephony/uicc/RuimRecords.java
 +++ b/src/java/com/android/internal/telephony/uicc/RuimRecords.java
-@@ -684,10 +684,12 @@
+@@ -664,10 +664,12 @@
                  data = (byte[])ar.result;
  
                  if (ar.exception != null) {
@@ -63,26 +61,28 @@ index 4e486d2..9e4ebef 100644
                  mFullIccId = IccUtils.bchToString(data, 0, data.length);
  
                  log("iccid: " + SubscriptionInfo.givePrintableIccid(mFullIccId));
+
 
 #---------------------------------------------------------------------------------------------------
 
+
 diff --git a/src/java/com/android/internal/telephony/uicc/SIMRecords.java b/src/java/com/android/internal/telephony/uicc/SIMRecords.java
-index e936d85..d169833 100644
+index e936d85..d169833 100755
 --- a/src/java/com/android/internal/telephony/uicc/SIMRecords.java
 +++ b/src/java/com/android/internal/telephony/uicc/SIMRecords.java
-@@ -900,10 +900,12 @@
-                 data = (byte[])ar.result;
+@@ -904,10 +904,12 @@
+                     data = (byte[]) ar.result;
  
-                 if (ar.exception != null) {
--                    break;
+                     if (ar.exception != null) {
+-                        break;
 +                    mIccId = FAKE_ICCID;
 +                }
 +                else {
 +                    mIccId = IccUtils.bcdToString(data, 0, data.length);
-                 }
+                     }
  
--                mIccId = IccUtils.bcdToString(data, 0, data.length);
-                 mFullIccId = IccUtils.bchToString(data, 0, data.length);
+-                    mIccId = IccUtils.bcdToString(data, 0, data.length);
+                     mFullIccId = IccUtils.bchToString(data, 0, data.length);
  
-                 log("iccid: " + SubscriptionInfo.givePrintableIccid(mFullIccId));
+                     log("iccid: " + SubscriptionInfo.givePrintableIccid(mFullIccId));
 

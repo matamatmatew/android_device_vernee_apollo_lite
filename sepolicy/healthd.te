@@ -1,4 +1,0 @@
-allow healthd device:dir r_dir_perms;
-allow healthd self:capability dac_override;
-allow healthd app_data_file:file write;
-allow healthd device:dir {open read write};
